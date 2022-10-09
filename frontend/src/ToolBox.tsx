@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import {
   CursorArrowRaysIcon,
@@ -19,10 +19,10 @@ import "./ToolBox.css";
 const ToolBox = () => {
   const activeTool = useStore(selectActiveTool);
 
-  const onDrawClicked = () => onActiveToolChanged(activeTool === "draw" ? undefined : "draw");
-  const onMarkerClicked = () => onActiveToolChanged(activeTool === "marker" ? undefined : "marker");
-  const onTextClicked = () => onActiveToolChanged(activeTool === "text" ? undefined : "text");
-  const onStickerClicked = () => onActiveToolChanged(activeTool === "sticker" ? undefined : "sticker");
+  const onDrawClicked = () => onActiveToolChanged(activeTool === "draw" ? null : "draw");
+  const onMarkerClicked = () => onActiveToolChanged(activeTool === "marker" ? null : "marker");
+  const onTextClicked = () => onActiveToolChanged(activeTool === "text" ? null : "text");
+  const onStickerClicked = () => onActiveToolChanged(activeTool === "sticker" ? null : "sticker");
 
   const defaultStyle = "ToolBoxItem";
   const activeStyle = "ToolBoxItem ToolBoxItemSelected";

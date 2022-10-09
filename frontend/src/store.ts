@@ -13,7 +13,7 @@ export interface Store {
   online: boolean;
   viewers: number;
 
-  activeTool: Tool,
+  activeTool: Tool;
 
   z: number;
   bounds: Bounds;
@@ -29,7 +29,7 @@ const initialStore: Store = {
   online: false,
   viewers: 1,
 
-  activeTool: undefined,
+  activeTool: null,
 
   z: 16,
   bounds: [-90, -180, 90, 180],
@@ -39,7 +39,7 @@ const initialStore: Store = {
 };
 
 // The selected tool from the bottom toolbar
-type Tool = "draw" | "marker" | "text" | "sticker" | undefined;
+type Tool = "draw" | "marker" | "text" | "sticker" | null;
 
 // Bounding box: left/west, bottom/south, right/east, top/north
 type Bounds = [number, number, number, number];
@@ -82,17 +82,17 @@ export const onMapMouseClick = async (lng: number, lat: number, z: number) => {
     onMapMouseClickEmit(userTag, lng, lat, z);
   }
 
- useStore.setState(
-   produce((state) => {
-     state.clicks.push({
-       tag: guid(),
-       z: z,
-       lng: lng,
-       lat: lat,
-       received: Date.now(),
-     });
-   })
- );
+  useStore.setState(
+    produce((state) => {
+      state.clicks.push({
+        tag: guid(),
+        z: z,
+        lng: lng,
+        lat: lat,
+        received: Date.now(),
+      });
+    })
+  );
 };
 
 // Send mouse hovers from the map to the server
@@ -143,16 +143,16 @@ export const onMapKeyPressed = (key: string) => {
 
   switch (key) {
     case "d":
-      onActiveToolChanged(activeTool === "draw" ? undefined : "draw");
+      onActiveToolChanged(activeTool === "draw" ? null: "draw");
       break;
     case "m":
-      onActiveToolChanged(activeTool === "marker" ? undefined : "marker");
+      onActiveToolChanged(activeTool === "marker" ? null: "marker");
       break;
     case "t":
-      onActiveToolChanged(activeTool === "text" ? undefined : "text");
+      onActiveToolChanged(activeTool === "text" ? null: "text");
       break;
     case "s":
-      onActiveToolChanged(activeTool === "sticker" ? undefined : "sticker");
+      onActiveToolChanged(activeTool === "sticker" ? null: "sticker");
       break;
   }
 };

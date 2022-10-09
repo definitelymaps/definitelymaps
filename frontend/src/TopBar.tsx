@@ -5,15 +5,10 @@ import {
   ShareIcon,
 } from "@heroicons/react/20/solid";
 
-import { useStore } from "./store";
-
 import "./TopBar.css";
 
 
 const TopBar = () => {
-  const online = useStore(state => state.online);
-  const viewers = useStore(state => state.viewers);
-
   return (
     <div className="TopBar">
       <div className="TopBarItem">

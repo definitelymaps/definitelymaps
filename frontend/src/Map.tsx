@@ -24,7 +24,6 @@ import {
   useMapMouseClickPosition,
   useMapMouseHoverPosition,
   useMapCenterPosition,
-  useIsMobileScreen,
   useHasHoverInput,
   useMapBounds,
   useMapKeypress,
@@ -34,14 +33,14 @@ import "./Map.css";
 
 
 const Map = () => {
-  const wantsClicks = useStore(state => state.activeTool) === "marker";
-  const wantsHovers = useStore(state => state.activeTool) === "draw";
-
+  const activeTool = useStore(state => state.activeTool);
   const remoteClicks = useStore(selectClicks);
   const remoteHovers = useStore(selectHovers);
 
-  const isMobileScreen = useIsMobileScreen();
   const hasHoverInput = useHasHoverInput();
+
+  const wantsClicks = activeTool === "marker";
+  const wantsHovers = activeTool === "draw";
 
   return (
     <MapContainer
