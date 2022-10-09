@@ -1,0 +1,12 @@
+.App {
+  height: 100%;
+  width: 100%;
+
+  background-color: var(--color-grey-100);
+  color: var(--color-grey-900);
+
+  font-family: var(--font-sans);
+
+  display: flex;
+  flex-direction: column;
+}

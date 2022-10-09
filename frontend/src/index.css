@@ -1,0 +1,12 @@
+*, ::before, ::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --font-sans: -apple-system, BlinkMacSystemFont, Roboto, Roboto FlexVariable, sans-serif;
+}
+
+html, body, #root {
+  height: 100vh;
+  width: 100vw;
+}

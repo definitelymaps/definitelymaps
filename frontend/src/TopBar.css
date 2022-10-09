@@ -1,0 +1,27 @@
+.TopBar {
+  height: var(--size-12);
+
+  padding: 0 var(--size-5) 0 var(--size-5);
+
+  background-color: var(--color-grey-100);
+
+  border-bottom: 2px solid var(--color-grey-900);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.TopBarItem {
+  color: var(--color-grey-900);
+  font-family: var(--font-sans);
+  font-size: var(--scale-fluid-2);
+  font-weight: var(--weight-medium);
+}
+
+.TopBarItemIcon {
+  height: 20px;
+  width: 20px;
+
+  color: var(--color-grey-700);
+}

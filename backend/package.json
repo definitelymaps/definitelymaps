@@ -1,0 +1,28 @@
+{
+  "private": true,
+  "name": "definitelymaps",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "check": "tsc --noEmit",
+    "start": "node dist/index.js",
+    "migrate": "knex --knexfile dist/knexfile migrate:latest",
+    "migrate-and-start": "npm run migrate && npm run start"
+  },
+  "dependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/node": "^18.7.13",
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "knex": "^2.0.0",
+    "nanoid": "^3.3.4",
+    "pg": "^8.7.3",
+    "pino-http": "^8.2.0",
+    "pino-pretty": "^9.1.0",
+    "socket.io": "^4.5.2",
+    "typescript": "^4.6.3"
+  }
+}
