@@ -3,7 +3,7 @@ import React from "react";
 import {
   Bars3Icon,
   ShareIcon,
-} from "@heroicons/react/20/solid";
+} from "@heroicons/react/24/outline";
 
 import "./TopBar.css";
 

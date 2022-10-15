@@ -25,20 +25,25 @@
 }
 
 .ToolBoxItem {
+  color: var(--color-grey-700);
   padding: var(--size-4) var(--size-5);
 }
 
 .ToolBoxItem:hover {
-  background: var(--color-purple-300);
+  background: var(--color-grey-300);
 }
 
 .ToolBoxItemSelected {
+  color: var(--color-grey-100);
+  background: var(--color-purple-300);
+}
+
+.ToolBoxItemSelected:hover {
+  color: var(--color-grey-100);
   background: var(--color-purple-300);
 }
 
 .ToolBoxItemIcon {
-  height: 20px;
-  width: 20px;
-
-  color: var(--color-grey-700);
+  height: 24px;
+  width: 24px;
 }
