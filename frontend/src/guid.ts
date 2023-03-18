@@ -1,5 +1,13 @@
-import { customAlphabet } from "nanoid";
+import { v4 as uuidv4 } from "uuid";
+import base from "base-x";
 
-const guid = customAlphabet("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", 22);
 
-export default guid;
+export default function guid(): string {
+  const buf = new Uint8Array(16);
+  uuidv4(null, buf, 0);
+
+  const base62 = base("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+  const enc = base62.encode(buf);
+
+  return enc;
+}
