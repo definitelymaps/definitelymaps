@@ -77,11 +77,13 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("mouseHover", userTag, lng, lat, z);
   });
 
-  socket.emit("viewers", io.engine.clientsCount);
-  socket.broadcast.emit("viewers", io.engine.clientsCount);
+  const clientsCount = (io.engine as any).clientsCount;
+
+  socket.emit("viewers", clientsCount);
+  socket.broadcast.emit("viewers", clientsCount);
 
   socket.on("disconnect", (reason) => {
-    socket.broadcast.emit("viewers", io.engine.clientsCount);
+    socket.broadcast.emit("viewers", clientsCount);
   });
 });
 
