@@ -14,6 +14,7 @@ import {
   useStore,
   selectClicks,
   selectHovers,
+  selectActiveTool,
   onMapMouseHover,
   onMapMouseClick,
   onMapBoundsChange,
@@ -33,7 +34,7 @@ import "./Map.css";
 
 
 const Map = () => {
-  const activeTool = useStore(state => state.activeTool);
+  const activeTool = useStore(selectActiveTool);
   const remoteClicks = useStore(selectClicks);
   const remoteHovers = useStore(selectHovers);
 

@@ -13,6 +13,7 @@ export interface Store {
   online: boolean;
   viewers: number;
 
+  title: string;
   activeTool: Tool;
 
   z: number;
@@ -29,6 +30,7 @@ const initialStore: Store = {
   online: false,
   viewers: 1,
 
+  title: "Untitled",
   activeTool: null,
 
   z: 16,
@@ -160,3 +162,4 @@ export const onMapKeyPressed = (key: string) => {
 export const selectActiveTool = (state: Store) => state.activeTool
 export const selectClicks = (state: Store) => state.clicks
 export const selectHovers = (state: Store) => state.hovers
+export const selectTitle = (state: Store) => state.title
