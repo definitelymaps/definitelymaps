@@ -1,11 +1,8 @@
-import React from "react";
-
 import "./App.css";
 
 import TopBar from "./TopBar";
 import Map from "./Map";
 import ToolBox from "./ToolBox";
-
 
 const App = () => {
   return (
@@ -17,4 +14,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default App

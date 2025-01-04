@@ -10,27 +10,28 @@ Check out the [demo](https://definitelymaps.app)
 We provide a self-contained reproducible docker environment; to start it all up
 
 ```bash
-make
-make up
+just
+just build
+just up
 ```
 
 To get a shell in the containers for development
 
 ```bash
-make backend-sh
-make frontend-sh
+just backend-sh
+just frontend-sh
 ```
 
 To work with the postgres database
 
 ```bash
-make postgres-migrate
-make postgres-sh
+just postgres-migrate
+just postgres-sh
 ```
 
 
 # License
 
-Copyright (c) 2022 definitely maps.
+Copyright (c) 2022-2025 definitely maps.
 
 Distributed under the MIT License (MIT).

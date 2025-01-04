@@ -1,6 +1,5 @@
-import create from "zustand";
-import produce from "immer";
-import { createSelector } from "reselect";
+import { create } from "zustand";
+import { produce } from "immer";
 
 import guid from "./guid";
 import { onMapMouseClickEmit, onMapMouseHoverEmit } from "./net"
@@ -69,11 +68,11 @@ export interface MapHoverEvent {
 }
 
 // The exported store to use below and in the react components
-export const useStore = create<Store>((set) => initialStore);
+export const useStore = create<Store>(() => initialStore);
 export const resetStore = () => useStore.setState(initialStore);
 
 // Send mouse clicks from the map to the server
-export const onMapMouseClick = async (lng: number, lat: number, z: number) => {
+export const onMapMouseClick = (lng: number, lat: number, z: number) => {
   const { userTag, online, viewers, activeTool } = useStore.getState();
 
   if (activeTool !== "marker") {
@@ -85,7 +84,7 @@ export const onMapMouseClick = async (lng: number, lat: number, z: number) => {
   }
 
   useStore.setState(
-    produce((state) => {
+    produce((state: Store) => {
       state.clicks.push({
         tag: guid(),
         z: z,
@@ -98,7 +97,7 @@ export const onMapMouseClick = async (lng: number, lat: number, z: number) => {
 };
 
 // Send mouse hovers from the map to the server
-export const onMapMouseHover = async (lng: number, lat: number, z: number) => {
+export const onMapMouseHover = (lng: number, lat: number, z: number) => {
   const { userTag, online, viewers, activeTool } = useStore.getState();
 
   if (activeTool !== "draw") {
@@ -110,7 +109,7 @@ export const onMapMouseHover = async (lng: number, lat: number, z: number) => {
   }
 
   useStore.setState(
-    produce((state) => {
+    produce((state: Store) => {
       state.hovers.push({
         tag: guid(),
         z: z,
@@ -124,7 +123,7 @@ export const onMapMouseHover = async (lng: number, lat: number, z: number) => {
 
 export const onMapBoundsChange = (w: number, s: number, e: number, n: number, z: number) => {
   useStore.setState(
-    produce((state) => {
+    produce((state: Store) => {
       state.z = z;
       state.bounds = [w, s, e, n];
     })
@@ -134,7 +133,7 @@ export const onMapBoundsChange = (w: number, s: number, e: number, n: number, z:
 
 export const onActiveToolChanged = (tool: Tool) => {
   useStore.setState(
-    produce((state) => {
+    produce((state: Store) => {
       state.activeTool = tool;
     })
   );

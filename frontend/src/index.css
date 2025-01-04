@@ -3,7 +3,7 @@
 }
 
 :root {
-  --font-sans: -apple-system, BlinkMacSystemFont, Roboto, Roboto FlexVariable, sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, Roboto, "Roboto Flex Variable", sans-serif;
 }
 
 html, body, #root {

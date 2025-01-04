@@ -56,7 +56,7 @@ const parseEnv = (): Env => {
   }
 
   if (deployment !== "development" && deployment !== "production") {
-    throw new Error("env var NODE_ENV is not 'development'  or 'production'");
+    throw new Error("env var NODE_ENV is not 'development' or 'production'");
   }
 
   const parsedAppPort = parseInt(appPort, 10);

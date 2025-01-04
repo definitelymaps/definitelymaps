@@ -1,0 +1,67 @@
+services:
+  backend:
+    image: definitelymaps/backend
+    init: true
+    build:
+      context: backend
+      dockerfile: Containerfile
+    command: sh -c "sleep 5 ; npm run migrate-and-start"
+    ports:
+      - "127.0.0.1:5000:5000"
+    environment:
+      - APP_HOST=0.0.0.0
+      - APP_PORT=5000
+      - APP_SECRET=MySecret
+      - NODE_ENV=development
+      - POSTGRES_USER=postgres
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_PASSWORD=MySecret
+      - POSTGRES_DATABASE=postgres
+    volumes:
+      - ./backend/.npmrc:/home/node/app/.npmrc:Z
+      - ./backend/package.json:/home/node/app/package.json:Z
+      - ./backend/package-lock.json:/home/node/app/package-lock.json:Z
+      - ./backend/tsconfig.json:/home/node/app/tsconfig.json:Z
+      - ./backend/src:/home/node/app/src:Z
+    depends_on:
+      - postgres
+
+  frontend:
+    image: definitelymaps/frontend
+    init: true
+    build:
+      context: frontend
+      dockerfile: Containerfile
+    ports:
+      - "127.0.0.1:3001:3001"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./frontend/.npmrc:/home/node/app/.npmrc:Z
+      - ./frontend/package.json:/home/node/app/package.json:Z
+      - ./frontend/package-lock.json:/home/node/app/package-lock.json:Z
+      - ./frontend/tsconfig.json:/home/node/app/tsconfig.json:Z
+      - ./frontend/tsconfig.node.json:/home/node/app/tsconfig.node.json:Z
+      - ./frontend/tsconfig.app.json:/home/node/app/tsconfig.app.json:Z
+      - ./frontend/eslint.config.js:/home/node/app/eslint.config.js:Z
+      - ./frontend/vite.config.ts:/home/node/app/vite.config.ts:Z
+      - ./frontend/index.html:/home/node/app/index.html:Z
+      - ./frontend/src:/home/node/app/src:Z
+      - ./frontend/public:/home/node/app/public:Z
+    depends_on:
+      - backend
+
+  postgres:
+    image: docker.io/library/postgres:17-bookworm
+    ports:
+      - "127.0.0.1:5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "MySecret"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+
+volumes:
+  postgres:
+    name: definitelymaps-postgres-volume

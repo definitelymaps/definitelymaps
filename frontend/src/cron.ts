@@ -1,7 +1,7 @@
-import produce from "immer";
+import { produce } from "immer";
 
 import { MapClickEvent, MapHoverEvent } from "./store";
-import { useStore } from "./store";
+import { useStore, Store } from "./store";
 
 
 // Global timers ticking e.g. every 500 ms to clean the store
@@ -17,7 +17,7 @@ export const setClickTimer = () => {
 
   clickTimer = window.setInterval(() => {
     useStore.setState(
-      produce((state) => {
+      produce((state: Store) => {
         state.clicks = state.clicks.filter((click: MapClickEvent) => {
           return (Date.now() - click.received) < 1000;
         });
@@ -43,7 +43,7 @@ export const setHoverTimer = () => {
 
   hoverTimer = window.setInterval(() => {
     useStore.setState(
-      produce((state) => {
+      produce((state: Store) => {
         state.hovers = state.hovers.filter((hover: MapHoverEvent) => {
           return (Date.now() - hover.received) < 1000;
         });

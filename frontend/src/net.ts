@@ -1,8 +1,8 @@
-import produce from "immer";
+import { produce } from "immer";
 import { io, Socket } from "socket.io-client";
 
 import guid from "./guid";
-import { useStore } from "./store";
+import { useStore, Store } from "./store";
 import { setClickTimer, setHoverTimer } from "./cron";
 
 
@@ -29,7 +29,7 @@ export const socket: Socket<DownstreamEvents, UpstreamEvents> = io("http://local
 // Fired when we (re-)connect to the websocket server
 socket.on("connect", () => {
   useStore.setState(
-    produce((state) => {
+    produce((state: Store) => {
       state.online = true;
     })
   );
@@ -41,7 +41,7 @@ socket.on("connect", () => {
 // Fired when we disconnect (for whatever reasons) from the websocket server
 socket.on("disconnect", () => {
   useStore.setState(
-    produce((state) => {
+    produce((state: Store) => {
       state.online = false;
     })
   );
@@ -51,14 +51,14 @@ socket.on("disconnect", () => {
 // here we receive this event and update our store accordingly
 socket.on("viewers", (n: number) => {
   useStore.setState(
-    produce((state) => {
+    produce((state: Store) => {
       state.viewers = n;
     })
   );
 });
 
 // Receive other user's mouse click events from the server
-socket.on("mouseClick", (userTag: string, lng: number, lat: number, z: number) => {
+socket.on("mouseClick", (_userTag: string, lng: number, lat: number, z: number) => {
   const mapZ = useStore.getState().z;
   const [w, s, e, n] = useStore.getState().bounds;
 
@@ -71,7 +71,7 @@ socket.on("mouseClick", (userTag: string, lng: number, lat: number, z: number) =
   }
 
   useStore.setState(
-    produce((state) => {
+    produce((state: Store) => {
       state.clicks.push({
         tag: guid(),
         z: z,
@@ -86,7 +86,7 @@ socket.on("mouseClick", (userTag: string, lng: number, lat: number, z: number) =
 });
 
 // Receive other user's mouse hover events from the server
-socket.on("mouseHover", (userTag: string, lng: number, lat: number, z: number) => {
+socket.on("mouseHover", (_userTag: string, lng: number, lat: number, z: number) => {
   const mapZ = useStore.getState().z;
   const [w, s, e, n] = useStore.getState().bounds;
 
@@ -99,7 +99,7 @@ socket.on("mouseHover", (userTag: string, lng: number, lat: number, z: number) =
   }
 
   useStore.setState(
-    produce((state) => {
+    produce((state: Store) => {
       state.hovers.push({
         tag: guid(),
         z: z,
@@ -114,11 +114,11 @@ socket.on("mouseHover", (userTag: string, lng: number, lat: number, z: number) =
 });
 
 // Send mouse clicks from the map to the server
-export const onMapMouseClickEmit = async (userTag: string, lng: number, lat: number, z: number) => {
+export const onMapMouseClickEmit = (userTag: string, lng: number, lat: number, z: number) => {
   socket.volatile.emit("mouseClick", userTag, lng, lat, z);
 };
 
 // Send mouse hovers from the map to the server
-export const onMapMouseHoverEmit = async (userTag: string, lng: number, lat: number, z: number) => {
+export const onMapMouseHoverEmit = (userTag: string, lng: number, lat: number, z: number) => {
   socket.volatile.emit("mouseHover", userTag, lng, lat, z);
 };
